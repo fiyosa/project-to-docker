@@ -1,0 +1,68 @@
+version: "3"
+
+networks:
+  laravel:
+
+services:
+  app:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile.nginx
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    container_name: laravel-nginx
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - php
+    networks:
+      - laravel
+
+  php:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile.php
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    container_name: laravel-php
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - laravel
+
+  composer:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile.composer
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    container_name: laravel-composer
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+    depends_on:
+      - php
+    user: laravel
+    entrypoint: ["composer", "--ignore-platform-reqs"]
+    networks:
+      - laravel
+
+  artisan:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile.php
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    container_name: laravel-artisan
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ["php", "/var/www/html/artisan"]
+    networks:
+      - laravel

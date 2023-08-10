@@ -1,0 +1,40 @@
+version: '3'
+
+networks:
+  react:
+
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile.app
+    image: react/react-app
+    container_name: react-app
+    tty: true
+    volumes:
+      - ./:/usr/share/nginx/html
+    environment:
+      NODE_ENV: development
+    working_dir: /usr/share/nginx/html
+    restart: unless-stopped
+    networks:
+      - react
+
+  nginx:
+    build:
+      context: ./
+      dockerfile: Dockerfile.nginx
+    image: react/react-nginx
+    container_name: react-nginx
+    tty: true
+    volumes:
+      - ./:/usr/share/nginx/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 3000:3000
+    working_dir: /usr/share/nginx/html
+    restart: unless-stopped
+    depends_on:
+      - app
+    networks:
+      - react
