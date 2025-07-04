@@ -1,0 +1,39 @@
+name: deploy
+version: '3.8'
+
+networks:
+  laravel_network:
+    driver: bridge
+
+volumes:
+  laravel_data:
+
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile.app
+    container_name: laravel_app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - laravel_data:/var/www/html
+    networks:
+      - laravel_network
+
+  nginx:
+    build:
+      context: ./
+      dockerfile: Dockerfile.nginx
+    container_name: laravel_nginx
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    volumes:
+      - laravel_data:/var/www/html
+    working_dir: /var/www/html
+    tty: true
+    depends_on:
+      - app
+    networks:
+      - laravel_network

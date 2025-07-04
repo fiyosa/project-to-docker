@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "install": "npm --prefix resources/js install",
+    "dev": "npm --prefix resources/js run dev",
+    "build": "npm --prefix resources/js run build"
+  }
+}
