@@ -69,7 +69,7 @@ RUN rm -rf /var/cache/apk/* /tmp/*
 WORKDIR /var/www/html
 
 ## copy files
-COPY composer.json composer.lock ./
+COPY composer.json ./
 
 ## install packages
 RUN composer install --no-dev --no-scripts --no-interaction --optimize-autoloader

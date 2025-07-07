@@ -8,5 +8,8 @@
     "**/vendor/**": true,
     "*lock.json": true,
     "*.lock": true
+  },
+  "[php]": {
+    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
   }
 }
