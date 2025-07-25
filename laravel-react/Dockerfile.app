@@ -99,10 +99,10 @@ RUN php artisan config:cache && \
     php artisan view:cache
 
 ## set permissions
-RUN chown -R 1000:1000 storage bootstrap/cache && \
-    chmod -R 777 storage bootstrap/cache
+RUN chown -R www-data:www-data database storage bootstrap/cache && \
+    chmod -R 775 database storage bootstrap/cache 
 
-    ### (optional)
+### (optional)
 RUN php artisan migrate
 
 # ======================
@@ -112,8 +112,8 @@ RUN php artisan migrate
 RUN rm -f resources/js/package-lock.json
 RUN rm -rf resources/js/node_modules
 
-RUN npm install --omit=dev
-RUN npm run build
+# RUN npm install --omit=dev
+# RUN npm run build
 
 RUN rm -rf resources/js/node_modules
 

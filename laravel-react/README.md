@@ -1,21 +1,26 @@
-## run project via docker
+### Features
+
+- vite react
+- queue monitor
+
+### run project via docker
 
 ```sh
-docker compose down --rmi all && docker compose build --no-cache --progress plain && docker compose up -d
+docker compose down -v --rmi all && docker compose build --no-cache --progress plain && docker compose up -d
 ```
 
-## show worker on linux
+### show worker on linux
 
 ```sh
-ps aux | grep -E "queue:work|schedule:work"
+docker exec -it laravel_app ps aux | grep -E "queue:work|schedule:work"
 ```
 
 ```sh
-ps aux | grep "schedule:work"
+docker exec -it laravel_app ps aux | grep "schedule:work"
 ```
 
-## show worker on windows
+### show worker on windows
 
 ```sh
-tasklist | findstr "php"
+docker exec -it laravel_app tasklist | findstr "php"
 ```

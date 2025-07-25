@@ -15,7 +15,6 @@ services:
       dockerfile: Dockerfile.app
     container_name: laravel_app
     restart: unless-stopped
-    user: 'root'
     working_dir: /var/www/html
     volumes:
       - ./:/var/www/html

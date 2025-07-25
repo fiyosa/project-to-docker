@@ -10,7 +10,10 @@
         "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1",
-        "opcodesio/log-viewer": "^3.18"
+        "league/flysystem-aws-s3-v3": "^3.0",
+        "opcodesio/log-viewer": "^3.18",
+        "romanzipp/laravel-queue-monitor": "^5.4",
+        "sentry/sentry-laravel": "^4.15"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
